@@ -38,6 +38,19 @@ export const Post = ({
     }
   };
 
+  var imageURLValid = imageUrl;
+  let img = document.createElement('img');
+  img.src = imageURLValid;
+
+  img.onload = function () {
+    alert(`Изображение загружено, размеры ${img.width}x${img.height}`);
+  };
+
+  img.onerror = function () {
+    console.log('Ошибка во время загрузки изображения');
+    imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
+  };
+
   return (
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
       {isEditable && (
@@ -55,7 +68,7 @@ export const Post = ({
       {imageUrl && (
         <img
           className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
-          src={imageUrl || `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`}
+          src={imageUrl}
           alt={title}
         />
       )}
