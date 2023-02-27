@@ -7,13 +7,13 @@ import uniq from 'lodash.uniq';
 import { Post } from '../components/Post';
 import { TagsBlock } from '../components/TagsBlock';
 import { CommentsBlock } from '../components/CommentsBlock';
-import { fetchPosts, fetchTags } from '../redux/slices/posts';
+import { fetchPosts, fetchTags, fetchPostsPopular } from '../redux/slices/posts';
 
 export const Home = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth.data);
   const { posts, tags } = useSelector((state) => state.posts);
-
+  const [tabIndex, setTabIndex] = React.useState(0);
   const isPostsLoading = posts.status === 'loading';
   const isTagsLoading = tags.status === 'loading';
 
@@ -23,11 +23,21 @@ export const Home = () => {
     // eslint-disable-next-line
   }, []);
 
+  React.useEffect(() => {
+    if (tabIndex === 1) {
+      dispatch(fetchPostsPopular());
+    } else {
+      dispatch(fetchPosts());
+    }
+    dispatch(fetchTags());
+    // eslint-disable-next-line
+  }, [tabIndex]);
+
   return (
     <>
-      <Tabs style={{ marginBottom: 15 }} value={0} aria-label="basic tabs example">
-        <Tab label="Новые" />
-        <Tab label="Популярные" />
+      <Tabs style={{ marginBottom: 15 }} value={tabIndex} aria-label="basic tabs example">
+        <Tab label="Новые" onClick={() => setTabIndex(0)} />
+        <Tab label="Популярные" onClick={() => setTabIndex(1)} />
       </Tabs>
       <Grid container spacing={4}>
         <Grid xs={8} item>
