@@ -40,7 +40,7 @@ export const Post = ({
 
   var imageURLValid = '';
   let img = document.createElement('img');
-  img.src = imageURLValid;
+  img.src = imageUrl;
 
   img.onload = function () {
     console.log('Картинка загрузилась');
