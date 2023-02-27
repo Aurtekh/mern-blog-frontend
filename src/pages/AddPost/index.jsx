@@ -23,6 +23,8 @@ export const AddPost = () => {
   const [tags, setTags] = React.useState('');
   const inputFileRef = React.useRef(null);
 
+  console.log(id);
+
   const isEditing = Boolean(id);
 
   const handleChangeFile = async (event) => {
@@ -69,9 +71,9 @@ export const AddPost = () => {
     }
   };
 
-  React.useEffect(async (id) => {
+  React.useEffect((id) => {
     if (id) {
-      await axios
+      axios
         .get(`/posts/${id}`)
         .then(({ data }) => {
           setTitle(data.title);
