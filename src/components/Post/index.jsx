@@ -38,19 +38,6 @@ export const Post = ({
     }
   };
 
-  // var imageURLValid = imageUrl;
-  // let img = document.createElement('img');
-  // img.src = imageURLValid;
-
-  // img.onload = async function () {
-  //   console.log('Картинка загрузилась');
-  //   return (imageURLValid = imageUrl);
-  // };
-  // img.onerror = async function () {
-  //   console.log('Картинка НЕ загрузилась');
-  //   return (imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`);
-  // };
-
   return (
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
       {isEditable && (
