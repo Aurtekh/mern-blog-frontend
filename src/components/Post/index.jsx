@@ -52,6 +52,30 @@ export const Post = ({
     return imageURLValid;
   };
 
+  var xhr = new XMLHttpRequest();
+
+  xhr.open('GET', imageUrl, true);
+
+  xhr.send();
+
+  xhr.onreadystatechange = function () {
+    if (this.readyState != 4) return;
+
+    // по окончании запроса доступны:
+    // status, statusText
+    // responseText, responseXML (при content-type: text/xml)
+
+    if (this.status != 200) {
+      // обработать ошибку
+      console.log('ошибка: ' + (this.status ? this.statusText : 'запрос не удался'));
+      return;
+    } else {
+      console.log('ответ 200! ссылка рабочая');
+    }
+
+    // получить результат из this.responseText или this.responseXML
+  };
+
   return (
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
       {isEditable && (
