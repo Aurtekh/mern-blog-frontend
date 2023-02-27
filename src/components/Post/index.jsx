@@ -60,23 +60,17 @@ export const Post = ({
 
   xhr.onreadystatechange = function () {
     if (this.readyState != 4) return;
-
-    // по окончании запроса доступны:
-    // status, statusText
-    // responseText, responseXML (при content-type: text/xml)
-
     if (this.status != 200) {
-      // обработать ошибку
-      console.log('ошибка: ' + (this.status ? this.statusText : 'запрос не удался'));
+      console.log('ошибка загрузки картинки');
       imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
-      return;
+      return imageURLValid;
     } else {
       console.log('ответ 200! ссылка рабочая');
     }
 
     // получить результат из this.responseText или this.responseXML
   };
-
+  console.log(imageURLValid);
   return (
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
       {isEditable && (
