@@ -38,13 +38,19 @@ export const Post = ({
     }
   };
 
-  // var imageURLValid = imageUrl;
-  // let img = document.createElement('img');
-  // img.src = imageURLValid;
+  var imageURLValid = '';
+  let img = document.createElement('img');
+  img.src = imageURLValid;
 
-  // img.onerror = function () {
-  //   imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
-  // };
+  img.onload = function () {
+    console.log('Картинка загрузилась');
+    imageURLValid = imageUrl;
+  };
+
+  img.onerror = function () {
+    console.log('Картинка не загрузилась');
+    imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
+  };
 
   return (
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
@@ -63,7 +69,7 @@ export const Post = ({
       {imageUrl && (
         <img
           className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
-          src={`${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`}
+          src={imageURLValid}
           alt={title}
         />
       )}
