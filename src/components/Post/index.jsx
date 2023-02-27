@@ -41,7 +41,6 @@ export const Post = ({
   var imageURLValid = imageUrl;
   let img = document.createElement('img');
   img.src = imageURLValid;
-  console.log(img.onload, img.onerror);
   img.onload = function () {
     console.log('Картинка загрузилась');
   };
@@ -51,25 +50,10 @@ export const Post = ({
     imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
     return imageURLValid;
   };
+  if (img.onerror()) {
+    console.log('ssssssss');
+  }
 
-  var xhr = new XMLHttpRequest();
-
-  xhr.open('GET', imageUrl, true);
-
-  xhr.send();
-
-  xhr.onreadystatechange = function () {
-    if (this.readyState != 4) return;
-    if (this.status != 200) {
-      console.log('ошибка загрузки картинки');
-      imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
-      return imageURLValid;
-    } else {
-      console.log('ответ 200! ссылка рабочая');
-    }
-
-    // получить результат из this.responseText или this.responseXML
-  };
   console.log(imageURLValid);
   return (
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
