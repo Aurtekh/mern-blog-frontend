@@ -71,7 +71,7 @@ export const AddPost = () => {
     }
   };
 
-  React.useEffect((id) => {
+  React.useEffect(() => {
     if (id) {
       axios
         .get(`/posts/${id}`)
