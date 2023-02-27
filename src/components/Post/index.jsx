@@ -68,6 +68,7 @@ export const Post = ({
     if (this.status != 200) {
       // обработать ошибку
       console.log('ошибка: ' + (this.status ? this.statusText : 'запрос не удался'));
+      imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
       return;
     } else {
       console.log('ответ 200! ссылка рабочая');
