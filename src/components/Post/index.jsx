@@ -42,15 +42,21 @@ export const Post = ({
   let img = document.createElement('img');
   img.src = imageUrl;
 
-  img.onload = function () {
-    console.log('Картинка загрузилась');
+  if (img.onload) {
     imageURLValid = imageUrl;
-  };
-
-  img.onerror = function () {
-    console.log('Картинка не загрузилась');
+  } else {
     imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
-  };
+  }
+
+  // img.onload = function () {
+  //   console.log('Картинка загрузилась');
+  //   imageURLValid = imageUrl;
+  // };
+
+  // img.onerror = function () {
+  //   console.log('Картинка не загрузилась');
+  //   imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
+  // };
 
   return (
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
