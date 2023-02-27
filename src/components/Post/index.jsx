@@ -38,25 +38,27 @@ export const Post = ({
     }
   };
 
-  var imageURLValid = '';
-  let img = document.createElement('img');
-  img.src = imageUrl;
+  var imageURLValid = imageUrl;
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', imageURLValid, true);
+  xhr.send();
+  xhr.onreadystatechange = function () {
+    if (this.readyState != 4) return;
 
-  if (img.onload()) {
-    imageURLValid = imageUrl;
-  } else {
-    imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
-  }
+    // по окончании запроса доступны:
+    // status, statusText
+    // responseText, responseXML (при content-type: text/xml)
 
-  // img.onload = function () {
-  //   console.log('Картинка загрузилась');
-  //   imageURLValid = imageUrl;
-  // };
+    if (this.status != 200) {
+      imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
+      alert('ошибка: ' + (this.status ? this.statusText : 'запрос не удался'));
+      return;
+    } else {
+      alert('ответ 200! ссылка рабочая');
+    }
 
-  // img.onerror = function () {
-  //   console.log('Картинка не загрузилась');
-  //   imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
-  // };
+    // получить результат из this.responseText или this.responseXML
+  };
 
   return (
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
