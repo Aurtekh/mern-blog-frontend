@@ -69,9 +69,9 @@ export const AddPost = () => {
     }
   };
 
-  React.useEffect((id) => {
+  React.useEffect(async (id) => {
     if (id) {
-      axios
+      await axios
         .get(`/posts/${id}`)
         .then(({ data }) => {
           setTitle(data.title);
