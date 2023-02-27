@@ -55,7 +55,7 @@ export const Post = ({
       {imageUrl && (
         <img
           className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
-          src={imageUrl}
+          src={imageUrl || `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`}
           alt={title}
         />
       )}

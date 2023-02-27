@@ -23,8 +23,6 @@ export const AddPost = () => {
   const [tags, setTags] = React.useState('');
   const inputFileRef = React.useRef(null);
 
-  console.log(id);
-
   const isEditing = Boolean(id);
 
   const handleChangeFile = async (event) => {
