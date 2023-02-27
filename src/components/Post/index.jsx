@@ -42,12 +42,7 @@ export const Post = ({
   let img = document.createElement('img');
   img.src = imageURLValid;
 
-  img.onload = function () {
-    console.log('Изображение загружено');
-  };
-
   img.onerror = function () {
-    console.log('Ошибка во время загрузки изображения');
     imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
   };
 
