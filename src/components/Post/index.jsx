@@ -43,7 +43,7 @@ export const Post = ({
   img.src = imageURLValid;
 
   img.onload = function () {
-    alert(`Изображение загружено, размеры ${img.width}x${img.height}`);
+    console.log('Изображение загружено');
   };
 
   img.onerror = function () {
@@ -68,7 +68,7 @@ export const Post = ({
       {imageUrl && (
         <img
           className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
-          src={imageUrl}
+          src={imageURLValid}
           alt={title}
         />
       )}
