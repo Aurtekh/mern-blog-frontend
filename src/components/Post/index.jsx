@@ -39,25 +39,16 @@ export const Post = ({
   };
 
   var imageURLValid = imageUrl;
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', imageURLValid, true);
-  xhr.send();
-  xhr.onreadystatechange = function () {
-    if (this.readyState != 4) return;
+  let img = document.createElement('img');
+  img.src = imageURLValid;
 
-    // по окончании запроса доступны:
-    // status, statusText
-    // responseText, responseXML (при content-type: text/xml)
+  img.onload = function () {
+    console.log('Картинка загрузилась');
+  };
 
-    if (this.status != 200) {
-      imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
-      alert('ошибка: ' + (this.status ? this.statusText : 'запрос не удался'));
-      return;
-    } else {
-      alert('ответ 200! ссылка рабочая');
-    }
-
-    // получить результат из this.responseText или this.responseXML
+  img.onerror = function () {
+    console.log('Картинка загрузилась');
+    return (imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`);
   };
 
   return (
