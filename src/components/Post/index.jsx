@@ -47,8 +47,9 @@ export const Post = ({
   };
 
   img.onerror = function () {
-    console.log('Картинка загрузилась');
-    return (imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`);
+    console.log('Картинка НЕ загрузилась');
+    imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
+    return imageURLValid;
   };
 
   return (
