@@ -38,16 +38,17 @@ export const Post = ({
     }
   };
 
+  var imageURLValid = imageUrl;
   let img = document.createElement('img');
-  img.src = imageUrl;
-
+  img.src = imageURLValid;
+  console.log(img.onload, img.onerror);
   img.onload = function () {
     console.log('Картинка загрузилась');
   };
 
   img.onerror = function () {
     console.log('Картинка НЕ загрузилась');
-    const imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
+    imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
     return imageURLValid;
   };
 
@@ -68,7 +69,7 @@ export const Post = ({
       {imageUrl && (
         <img
           className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
-          src={imageURLValid || imageUrl}
+          src={imageURLValid}
           alt={title}
         />
       )}
