@@ -44,17 +44,16 @@ export const Post = ({
   img.onload = function () {
     console.log('Картинка загрузилась');
   };
-
   img.onerror = function () {
     console.log('Картинка НЕ загрузилась');
-    imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
-    return imageURLValid;
   };
   if (img.onerror()) {
-    console.log('ssssssss');
+    imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
+  }
+  if (img.onload()) {
+    imageURLValid = imageUrl;
   }
 
-  console.log(imageURLValid);
   return (
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
       {isEditable && (
