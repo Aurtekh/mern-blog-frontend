@@ -38,13 +38,13 @@ export const Post = ({
     }
   };
 
-  var imageURLValid = imageUrl;
-  let img = document.createElement('img');
-  img.src = imageURLValid;
+  // var imageURLValid = imageUrl;
+  // let img = document.createElement('img');
+  // img.src = imageURLValid;
 
-  img.onerror = function () {
-    imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
-  };
+  // img.onerror = function () {
+  //   imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
+  // };
 
   return (
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
@@ -63,7 +63,7 @@ export const Post = ({
       {imageUrl && (
         <img
           className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
-          src={imageURLValid}
+          src={`${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`}
           alt={title}
         />
       )}
