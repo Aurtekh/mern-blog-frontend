@@ -42,7 +42,7 @@ export const Post = ({
   let img = document.createElement('img');
   img.src = imageUrl;
 
-  if (img.onload) {
+  if (img.onload()) {
     imageURLValid = imageUrl;
   } else {
     imageURLValid = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
