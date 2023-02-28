@@ -22,15 +22,25 @@ export const Home = () => {
   const isTagPosts = Boolean(tag);
 
   React.useEffect(() => {
-    if (isTagPosts) {
-      dispatch(fetchTagPosts(tag));
-    } else if (tabIndex === 1) {
+    dispatch(fetchPosts());
+    dispatch(fetchTags());
+    // eslint-disable-next-line
+  }, []);
+
+  React.useEffect(() => {
+    if (tabIndex === 1) {
       dispatch(fetchPostsPopular());
     } else {
       dispatch(fetchPosts());
     }
     dispatch(fetchTags());
     // eslint-disable-next-line
+  }, [tabIndex]);
+
+  React.useEffect(() => {
+    if (isTagPosts) {
+      dispatch(fetchTagPosts(tag));
+    }
   }, []);
 
   return (
