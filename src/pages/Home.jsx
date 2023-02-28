@@ -22,7 +22,11 @@ export const Home = () => {
   const isTagPosts = Boolean(tag);
 
   React.useEffect(() => {
-    dispatch(fetchPosts());
+    if (isTagPosts) {
+      dispatch(fetchTagPosts(tag));
+    } else {
+      dispatch(fetchPosts());
+    }
     dispatch(fetchTags());
     // eslint-disable-next-line
   }, []);
@@ -36,12 +40,6 @@ export const Home = () => {
     dispatch(fetchTags());
     // eslint-disable-next-line
   }, [tabIndex]);
-
-  React.useEffect(() => {
-    if (isTagPosts) {
-      dispatch(fetchTagPosts(tag));
-    }
-  }, []);
 
   return (
     <>
