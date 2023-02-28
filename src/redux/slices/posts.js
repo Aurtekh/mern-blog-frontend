@@ -17,7 +17,7 @@ export const fetchTags = createAsyncThunk('posts/fetchTags', async () => {
 });
 
 export const fetchTagPosts = createAsyncThunk('posts/fetchTagPosts', async (tag) => {
-  const { data } = await axios.get(`/tags${tag}`);
+  const { data } = await axios.get(`/tags/${tag}`);
   return data;
 });
 
