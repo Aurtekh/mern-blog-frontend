@@ -41,7 +41,7 @@ export const Home = () => {
     if (isTagPosts) {
       dispatch(fetchTagPosts(tag));
     }
-  }, []);
+  }, [isTagPosts]);
 
   return (
     <>
