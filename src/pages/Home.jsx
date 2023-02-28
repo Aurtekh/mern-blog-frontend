@@ -33,13 +33,15 @@ export const Home = () => {
     } else {
       dispatch(fetchPosts());
     }
-    dispatch(fetchTags());
+    // dispatch(fetchTags());
     // eslint-disable-next-line
   }, [tabIndex]);
 
   React.useEffect(() => {
     if (isTagPosts) {
       dispatch(fetchTagPosts(tag));
+    } else {
+      dispatch(fetchPosts());
     }
   }, [isTagPosts, tag]);
 
