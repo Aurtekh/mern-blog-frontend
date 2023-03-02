@@ -9,21 +9,24 @@ import { Post } from '../components/Post';
 import { TagsBlock } from '../components/TagsBlock';
 import { CommentsBlock } from '../components/CommentsBlock';
 import { fetchPosts, fetchTags, fetchPostsPopular, fetchTagPosts } from '../redux/slices/posts';
+import { fetchComments } from '../redux/slices/comments';
 
 export const Home = () => {
   const { id: tag } = useParams();
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth.data);
+  const { comments } = useSelector((state) => state.comments);
   const { posts, tags } = useSelector((state) => state.posts);
   const [tabIndex, setTabIndex] = React.useState(0);
   const isPostsLoading = posts.status === 'loading';
   const isTagsLoading = tags.status === 'loading';
-
+  const isCommentLoading = comments.status === 'loading';
   const isTagPosts = Boolean(tag);
 
   React.useEffect(() => {
     dispatch(fetchPosts());
     dispatch(fetchTags());
+    dispatch(fetchComments());
     // eslint-disable-next-line
   }, []);
 
@@ -64,11 +67,12 @@ export const Home = () => {
               <Post
                 id={obj._id}
                 title={obj.title}
-                imageUrl={obj.imageUrl ? `${process.env.REACT_APP_API_URL}${obj.imageUrl}` : ''}
+                // imageUrl={obj.imageUrl ? `${process.env.REACT_APP_API_URL}${obj.imageUrl}` : ''}
+                imageUrl={obj.imageUrl ? `http://localhost:4444${obj.imageUrl}` : ''}
                 user={obj.user}
                 createdAt={obj.createdAt}
                 viewsCount={obj.viewsCount}
-                commentsCount={3}
+                commentsCount={comments.items.filter((comment) => comment.post === obj._id).length}
                 tags={obj.tags}
                 isEditable={userData?._id === obj.user._id}
               />
@@ -77,25 +81,7 @@ export const Home = () => {
         </Grid>
         <Grid xs={4} item>
           <TagsBlock items={uniq(tags.items)} isLoading={isTagsLoading} />
-          <CommentsBlock
-            items={[
-              {
-                user: {
-                  fullName: 'Вася Пупкин',
-                  avatarUrl: 'https://mui.com/static/images/avatar/1.jpg',
-                },
-                text: 'Это тестовый комментарий',
-              },
-              {
-                user: {
-                  fullName: 'Иван Иванов',
-                  avatarUrl: 'https://mui.com/static/images/avatar/2.jpg',
-                },
-                text: 'When displaying three lines or more, the avatar is not aligned at the top. You should set the prop to align the avatar at the top',
-              },
-            ]}
-            isLoading={false}
-          />
+          <CommentsBlock items={comments.items.slice(0, 5)} isLoading={isCommentLoading} />
         </Grid>
       </Grid>
     </>
