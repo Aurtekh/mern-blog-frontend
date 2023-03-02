@@ -58,8 +58,8 @@ export const Post = ({
           className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
           onError={(e) => {
             e.target.onerror = null;
-            // e.target.src = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
-            e.target.src = `http://localhost:4444/uploads/deleteImg.jpg`;
+            e.target.src = `${process.env.REACT_APP_API_URL}/uploads/deleteImg.jpg`;
+            // e.target.src = `http://localhost:4444/uploads/deleteImg.jpg`;
           }}
           alt={title}
         />
