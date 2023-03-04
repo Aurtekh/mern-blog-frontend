@@ -66,6 +66,9 @@ const commentsSlice = createSlice({
     // Удаление комментария
     builder.addCase(fetchRemoveComment.pending, (state, action) => {
       state.comments.items = state.comments.items.filter((obj) => obj._id !== action.meta.arg);
+      state.commentsThisPost.items = state.commentsThisPost.items.filter(
+        (obj) => obj._id !== action.meta.arg,
+      );
     });
   },
 });

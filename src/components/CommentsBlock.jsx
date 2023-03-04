@@ -1,6 +1,7 @@
 import React from 'react';
-
+import { useDispatch } from 'react-redux';
 import { SideBlock } from './SideBlock';
+import { useParams } from 'react-router-dom';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
@@ -13,9 +14,17 @@ import { useSelector } from 'react-redux';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Clear';
 import styles from './CommentBlock.module.scss';
+import { fetchRemoveComment } from '../redux/slices/comments';
 
 export const CommentsBlock = ({ items, children, isLoading = true }) => {
-  // const userData = useSelector((state) => state.auth.data);
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.auth.data);
+
+  const onClickRemove = (event) => {
+    if (window.confirm('Вы действительно хотите удалить комментарий?')) {
+      dispatch(fetchRemoveComment(event.currentTarget.id));
+    }
+  };
 
   return (
     <SideBlock title="Комментарии">
@@ -38,13 +47,13 @@ export const CommentsBlock = ({ items, children, isLoading = true }) => {
               ) : (
                 <ListItemText primary={obj.user.fullName} secondary={obj.text} />
               )}
-              {/* {userData?._id === obj?.user._id && (
-                <div className={styles.editButtons}>
+              {userData?._id === obj?.user._id && obj && (
+                <div id={obj._id} onClick={onClickRemove} className={styles.editButtons}>
                   <IconButton color="secondary">
                     <DeleteIcon />
                   </IconButton>
                 </div>
-              )} */}
+              )}
             </ListItem>
             <Divider variant="inset" component="li" />
           </React.Fragment>
